@@ -1,13 +1,9 @@
 FROM golang:1.22
 
-WORKDIR /prometheus
+WORKDIR /app
 
 
-COPY prometheus        ./
-COPY promtool          ./
-COPY documentation/examples/prometheus.yml  ./
-COPY LICENSE                                ./
-COPY NOTICE                                 ./
+COPY . /app
 
 
 RUN chown -R nobody:nobody /etc/prometheus /prometheus
@@ -15,6 +11,6 @@ RUN chown -R nobody:nobody /etc/prometheus /prometheus
 USER       nobody
 EXPOSE     9090
 VOLUME     [ "/prometheus" ]
-ENTRYPOINT [ "/prometheus" ]
-CMD        [ "--config.file=/prometheus.yml", \
+ENTRYPOINT [ "/app/prometheus" ]
+CMD        [ "--config.file=/app/documentation/examples/prometheus.yml", \
              "--storage.tsdb.path=/prometheus" ]
