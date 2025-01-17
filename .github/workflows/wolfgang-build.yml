@@ -18,7 +18,7 @@ jobs:
           pwd
           ls -A
           go mod download
-          go build -o prometheus .
+          make build -o prometheus .
       # Set up Docker Buildx for multi-platform builds (optional but recommended)
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
