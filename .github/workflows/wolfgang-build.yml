@@ -12,14 +12,11 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: '1.23'
-      - name: Show directory
+      - name: Build Go binary
+        working-directory: '/home/runner/work/prometheus/prometheus/'
         run: |
           pwd
           ls -A
-      - name: Build Go binary
-        working-directory: '/home/runner/work/prometheus/'
-        run: |
-          pwd
           go mod download
           go build -o prometheus .
       # Set up Docker Buildx for multi-platform builds (optional but recommended)
