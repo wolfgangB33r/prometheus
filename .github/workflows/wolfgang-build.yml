@@ -18,6 +18,8 @@ jobs:
           ls -A
           go mod download
           make build
+          pwd
+          ls -A
       # Set up Docker Buildx for multi-platform builds (optional but recommended)
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
