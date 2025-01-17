@@ -6,8 +6,8 @@ LABEL org.opencontainers.image.source="https://github.com/wolfgangb33r/prometheu
 
 ARG ARCH="amd64"
 ARG OS="linux"
-COPY .build/prometheus        /bin/prometheus
-COPY .build/promtool          /bin/promtool
+COPY prometheus        /bin/prometheus
+COPY promtool          /bin/promtool
 COPY documentation/examples/prometheus.yml  /etc/prometheus/prometheus.yml
 COPY LICENSE                                /LICENSE
 COPY NOTICE                                 /NOTICE
