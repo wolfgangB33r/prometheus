@@ -31,10 +31,11 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/prometheus
           file: ./Dockerfile
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
       # Optionally verify the image was pushed correctly
       - name: Verify Docker image
         run: |
