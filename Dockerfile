@@ -1,8 +1,4 @@
-ARG ARCH="amd64"
-ARG OS="linux"
-FROM quay.io/prometheus/busybox-${OS}-${ARCH}:latest
-LABEL maintainer="The Prometheus Authors <prometheus-developers@googlegroups.com>"
-LABEL org.opencontainers.image.source="https://github.com/wolfgangb33r/prometheus"
+FROM golang:1.22
 
 ARG ARCH="amd64"
 ARG OS="linux"
