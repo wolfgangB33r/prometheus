@@ -21,6 +21,7 @@ jobs:
       - name: Build Go binary
         working-directory: '/home/runner/work/prometheus/'
         run: |
+          pwd
           go mod download
           go build -o prometheus .
       # Set up Docker Buildx for multi-platform builds (optional but recommended)
