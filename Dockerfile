@@ -1,19 +1,20 @@
 FROM golang:1.22
 
-ARG ARCH="amd64"
-ARG OS="linux"
-COPY prometheus        /bin/prometheus
-COPY promtool          /bin/promtool
-COPY documentation/examples/prometheus.yml  /etc/prometheus/prometheus.yml
-COPY LICENSE                                /LICENSE
-COPY NOTICE                                 /NOTICE
-
 WORKDIR /prometheus
+
+
+COPY prometheus        ./
+COPY promtool          ./
+COPY documentation/examples/prometheus.yml  ./
+COPY LICENSE                                ./
+COPY NOTICE                                 ./
+
+
 RUN chown -R nobody:nobody /etc/prometheus /prometheus
 
 USER       nobody
 EXPOSE     9090
 VOLUME     [ "/prometheus" ]
-ENTRYPOINT [ "/bin/prometheus" ]
-CMD        [ "--config.file=/etc/prometheus/prometheus.yml", \
+ENTRYPOINT [ "/prometheus" ]
+CMD        [ "--config.file=/prometheus.yml", \
              "--storage.tsdb.path=/prometheus" ]
