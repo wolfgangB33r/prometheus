@@ -19,7 +19,7 @@ jobs:
           pwd
           ls -A
       - name: Build Go binary
-        working-directory: ../prometheus
+        working-directory: '/home/runner/work/prometheus/'
         run: |
           go mod download
           go build -o prometheus .
