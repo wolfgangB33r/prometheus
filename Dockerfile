@@ -5,9 +5,6 @@ WORKDIR /app
 
 COPY . /app
 
-
-RUN chown -R nobody:nobody /etc/prometheus /prometheus
-
 USER       nobody
 EXPOSE     9090
 VOLUME     [ "/prometheus" ]
