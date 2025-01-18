@@ -1,18 +1,15 @@
-FROM golang:1.22
+FROM debian:bullseye-slim
 
 WORKDIR /app
 
 # COPY hostpath imagepath
-COPY ./documentation/examples/prometheus.yml  /etc/prometheus/prometheus.yml
+COPY ./documentation/examples/prometheus.yml  prometheus.yml
 COPY ./prometheus prometheus
 
-USER       nobody
 EXPOSE     9090
 VOLUME     [ "/prometheus" ]
 # set the entrypoint command
-ENTRYPOINT [ "prometheus", \
-             "--config.file=/etc/prometheus/prometheus.yml", \
+ENTRYPOINT [ "/app/prometheus", \
+             "--config.file=prometheus.yml", \
              "--storage.tsdb.path=/prometheus", \
-             "--storage.tsdb.retention=365d", \
-             "--log.level=info", \
-             "--log.format=logger:stderr" ] 
+             "--log.level=info" ] 
