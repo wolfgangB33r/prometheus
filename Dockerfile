@@ -1,16 +1,24 @@
-FROM debian:bullseye-slim
+ARG ARCH="amd64"
+ARG OS="linux"
+FROM quay.io/prometheus/busybox-${OS}-${ARCH}:latest
+LABEL maintainer="The Prometheus Authors <prometheus-developers@googlegroups.com>"
+LABEL org.opencontainers.image.source="https://github.com/prometheus/prometheus"
 
-WORKDIR /app
+ARG ARCH="amd64"
+ARG OS="linux"
+COPY .build/${OS}-${ARCH}/prometheus        /bin/prometheus
+COPY .build/${OS}-${ARCH}/promtool          /bin/promtool
+COPY documentation/examples/prometheus.yml  /etc/prometheus/prometheus.yml
+COPY LICENSE                                /LICENSE
+COPY NOTICE                                 /NOTICE
+COPY npm_licenses.tar.bz2                   /npm_licenses.tar.bz2
 
-# COPY hostpath imagepath
-#COPY ./documentation/examples/prometheus.yml  prometheus.yml
-#COPY ./prometheus prometheus
-COPY . .
+WORKDIR /prometheus
+RUN chown -R nobody:nobody /etc/prometheus /prometheus
 
+USER       nobody
 EXPOSE     9090
 VOLUME     [ "/prometheus" ]
-# set the entrypoint command
-ENTRYPOINT [ "prometheus", \
-             "--config.file=./documentation/examples/prometheus.yml", \
-             "--storage.tsdb.path=/prometheus", \
-             "--log.level=info" ] 
+ENTRYPOINT [ "/bin/prometheus" ]
+CMD        [ "--config.file=/etc/prometheus/prometheus.yml", \
+             "--storage.tsdb.path=/prometheus" ]
