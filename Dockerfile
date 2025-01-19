@@ -10,7 +10,7 @@ COPY . .
 EXPOSE     9090
 VOLUME     [ "/prometheus" ]
 # set the entrypoint command
-ENTRYPOINT [ "/app/prometheus", \
-             "--config.file=prometheus.yml", \
+ENTRYPOINT [ "prometheus", \
+             "--config.file=./documentation/examples/prometheus.yml", \
              "--storage.tsdb.path=/prometheus", \
              "--log.level=info" ] 
